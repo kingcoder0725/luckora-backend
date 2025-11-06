@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const auth_1 = require("../../middlewares/auth");
+const bonus_1 = require("../../controllers/bonus");
+const router = (0, express_promise_router_1.default)();
+router.post('/get', validation_1.V.body(validation_1.Validator.Bonus.Common.Get), bonus_1.getUserBonus);
+router.post('/get_bonuses_for_my_shares', bonus_1.get_bonuses_for_my_shares);
+router.post('/active', validation_1.V.body(validation_1.Validator.Bonus.Common.Active), auth_1.verifyToken, bonus_1.active);
+router.post('/activate', auth_1.verifyToken, bonus_1.activateNoDepositBonus);
+router.post('/cancel', validation_1.V.body(validation_1.Validator.Bonus.Common.Cancel), auth_1.verifyToken, bonus_1.cancel);
+router.post('/:id', validation_1.V.params(validation_1.Validator.ObjectId), bonus_1.getOne);
+exports.default = router;

@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const auth_1 = require("../../middlewares/auth");
+const validation_1 = require("../../middlewares/validation");
+const freespin_limit_1 = require("../../controllers/settings/freespin_limit");
+const router = (0, express_promise_router_1.default)();
+router.get('/:id', validation_1.V.params(validation_1.Validator.ObjectId), auth_1.AGVerifytoken, freespin_limit_1.getOne);
+router.post('/currencies', validation_1.V.body(validation_1.Validator.Settings.FreespinLimit.Currencies), auth_1.AGVerifytoken, freespin_limit_1.getCampaignCurrencies);
+router.post('/games', validation_1.V.body(validation_1.Validator.Settings.FreespinLimit.Games), auth_1.AGVerifytoken, freespin_limit_1.getCampaignGames);
+router.post('/', validation_1.V.body(validation_1.Validator.Settings.FreespinLimit.Create), auth_1.AGVerifytoken, freespin_limit_1.create);
+router.post('/list', validation_1.V.body(validation_1.Validator.Settings.FreespinLimit.List), auth_1.AGVerifytoken, freespin_limit_1.list);
+router.put('/:id', validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Settings.FreespinLimit.Update), auth_1.AGVerifytoken, freespin_limit_1.updateOne);
+router.delete('/:id', validation_1.V.params(validation_1.Validator.ObjectId), auth_1.AGVerifytoken, freespin_limit_1.deleteOne);
+exports.default = router;

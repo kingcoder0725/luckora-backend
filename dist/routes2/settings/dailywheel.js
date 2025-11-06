@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const auth_1 = require("../../middlewares/auth");
+const  dailywheel_1 = require("../../controllers/settings/dailywheel");
+const router = (0, express_promise_router_1.default)();
+router.get('/get-daily', auth_1.verifyToken, dailywheel_1.getDaily);
+router.get('/get-daily-not-login', dailywheel_1.getDailyNotLogin);
+router.post('/play-daily', auth_1.verifyToken, dailywheel_1.playDaily);
+exports.default = router;

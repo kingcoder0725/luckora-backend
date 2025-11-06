@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const email_1 = require("./email");
+const history_1 = require("./history");
+const popup_1 = require("./popup");
+const router = (0, express_promise_router_1.default)();
+router.use('/email-sms', email_1.default);
+router.use('/history', history_1.default);
+router.use('/popup', popup_1.default);
+exports.default = router;

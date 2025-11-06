@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const words_1 = require("../../controllers/languages/words");
+const router = (0, express_promise_router_1.default)();
+router.get('/', words_1.get);
+router.get('/:id', validation_1.V.params(validation_1.Validator.ObjectId), words_1.getOne);
+router.post('/', words_1.create);
+router.put('/', words_1.updateMany);
+router.put('/:id', validation_1.V.params(validation_1.Validator.ObjectId), words_1.update);
+router.delete('/:id', validation_1.V.params(validation_1.Validator.ObjectId), words_1.deleteOne);
+exports.default = router;

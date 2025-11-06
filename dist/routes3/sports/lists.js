@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const sportslists_1 = require("../../controllers/sports/sportslists");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_promise_router_1.default)();
+router.get('/', auth_1.AVerifytoken, sportslists_1.get);
+router.get('/:id', auth_1.AVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), sportslists_1.getOne);
+router.post('/', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Lists.Create), sportslists_1.create);
+router.post('/list', validation_1.V.body(validation_1.Validator.Sports.Lists.List), sportslists_1.list);
+router.post('/label', auth_1.AGVerifytoken, sportslists_1.label);
+router.put('/:id', auth_1.AVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Sports.Lists.Update), sportslists_1.updateOne);
+router.delete('/:id', auth_1.AVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), sportslists_1.deleteOne);
+exports.default = router;

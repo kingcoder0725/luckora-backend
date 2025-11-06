@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const notification_1 = require("./notification");
+const banners_1 = require("./banners");
+const blogs_1 = require("./blogs");
+const spinwheel_1 = require("./spinwheel");
+const dailywheel_1 = require("./dailywheel");
+const router = (0, express_promise_router_1.default)();
+router.use('/notifications', notification_1.default);
+router.use('/banners', banners_1.default);
+router.use('/blogs', blogs_1.default);
+router.use('/spinwheel', spinwheel_1.default);
+router.use('/dailywheel', dailywheel_1.default);
+exports.default = router;

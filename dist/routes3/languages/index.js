@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const words_1 = require("./words");
+const language_1 = require("./language");
+const languages_1 = require("./languages");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_promise_router_1.default)();
+router.use('/words', auth_1.AVerifytoken, words_1.default);
+router.use('/languages', languages_1.default);
+router.use('/', auth_1.AVerifytoken, language_1.default);
+exports.default = router;

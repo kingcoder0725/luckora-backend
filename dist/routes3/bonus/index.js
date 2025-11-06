@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const common_1 = require("./common");
+const event_1 = require("./event");
+const tier_1 = require("./tier");
+const router = (0, express_promise_router_1.default)();
+router.use('/common', common_1.default);
+router.use('/event', event_1.default);
+router.use('/tier', tier_1.default);
+exports.default = router;

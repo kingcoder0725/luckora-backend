@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const auth_1 = require("../../middlewares/auth");
+const validation_1 = require("../../middlewares/validation");
+const reports_1 = require("../../controllers/reports");
+const router = (0, express_promise_router_1.default)();
+router.post('/profit', reports_1.getProfits);
+router.post('/', validation_1.V.body(validation_1.Validator.Report.Report), auth_1.AVerifytoken, reports_1.report);
+exports.default = router;

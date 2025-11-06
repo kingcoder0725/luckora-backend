@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const session_1 = require("../../controllers/users/session");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_promise_router_1.default)();
+router.get('/', auth_1.AGVerifytoken, session_1.get);
+router.get('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), session_1.getOne);
+router.post('/', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Users.Session.Create), session_1.create);
+router.post('/list', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Users.Session.List), session_1.list);
+router.post('/csv', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Users.Session.List), session_1.csv);
+router.put('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Users.Session.Update), session_1.updateOne);
+router.delete('/', auth_1.AGVerifytoken, session_1.deleteAll);
+router.delete('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), session_1.deleteOne);
+exports.default = router;

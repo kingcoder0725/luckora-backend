@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const sportsbets_1 = require("../../controllers/sports/sportsbets");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_promise_router_1.default)();
+router.get('/', auth_1.AVerifytoken, sportsbets_1.get);
+router.get('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), sportsbets_1.getOne);
+router.post('/', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bets.Create), sportsbets_1.create);
+router.post('/list', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bets.List), sportsbets_1.list);
+router.post('/csv', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bets.List), sportsbets_1.csv);
+router.post('/label', auth_1.AGVerifytoken, sportsbets_1.label);
+router.put('/:id', auth_1.AVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Sports.Bets.Update), sportsbets_1.updateOne);
+router.delete('/:id', auth_1.AVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), sportsbets_1.deleteOne);
+exports.default = router;

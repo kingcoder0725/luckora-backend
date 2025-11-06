@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const auth_1 = require("../../middlewares/auth");
+const validation_1 = require("../../middlewares/validation");
+const reports_1 = require("../../controllers/reports");
+const router = (0, express_promise_router_1.default)();
+router.post('/profit', reports_1.getProfits);
+router.post('/user', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Report.User), reports_1.getUserProfit);
+router.post('/', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Report.Report), reports_1.report);
+router.post('/r-all', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.UserId), reports_1.removeTest);
+router.post('/r-sports', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.UserId), reports_1.removeSports);
+router.post('/c-profit', auth_1.AGVerifytoken, reports_1.getCProfit);
+exports.default = router;

@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const top_games_1 = require("../../controllers/games/top_games");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_promise_router_1.default)();
+router.get('/', auth_1.AGVerifytoken, top_games_1.get);
+router.post('/', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Games.Top_games.Create), top_games_1.create);
+router.post('/list', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Games.Top_games.List), top_games_1.list);
+router.post('/label', auth_1.AGVerifytoken, top_games_1.label);
+router.post('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), top_games_1.getOne);
+router.post('/replace-invalid', auth_1.AGVerifytoken, top_games_1.replaceInvalid);
+router.put('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Games.Top_games.Update), top_games_1.updateOne);
+router.delete('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), top_games_1.deleteOne);
+exports.default = router;

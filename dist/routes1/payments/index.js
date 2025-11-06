@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const payment_1 = require("../../controllers/payment");
+const auth_1 = require("../../middlewares/auth");
+const multer = require('multer');
+const upload = multer();
+const router = (0, express_promise_router_1.default)();
+router.post('/getPaymentMethod', payment_1.getPaymentMethod);
+router.get('/currencies', payment_1.getPaymentMethod);
+router.post('/getTransactionResult', payment_1.getTransactionResult);
+router.post('/getAdminBalance', auth_1.AVerifytoken, payment_1.getAdminBalance);
+router.post('/coinremitter-callback', upload.none(), payment_1.coinRemitterCallback);
+exports.default = router;

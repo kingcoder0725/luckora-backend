@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const multer = require("multer");
+const auth_1 = require("../../middlewares/auth");
+const validation_1 = require("../../middlewares/validation");
+const files_1 = require("../../controllers/files");
+const uploader_1 = require("../../middlewares/uploader");
+const router = (0, express_promise_router_1.default)();
+router.post('/', auth_1.verifyToken, multer({ storage: uploader_1.storage, fileFilter: uploader_1.fileFilter, limits: uploader_1.limits }).any(), files_1.upload);
+router.post('/delete', validation_1.V.body(validation_1.Validator.Files.DeleteURI), auth_1.verifyToken, files_1.deleteURI);
+exports.default = router;

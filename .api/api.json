@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "sseu",
+      "source": "@sseu/v1.1#13cesi25lrj1heh2",
+      "integrity": "sha512-L2HfwytsSCygHCCbMqDypAIPZSWH0F+hVeAWg7h2YCqfcR11k8r0ES3StHwiFxUG0LuIBkfyguLvmkWFl8hK/A==",
+      "installerVersion": "6.1.2"
+    }
+  ]
+}

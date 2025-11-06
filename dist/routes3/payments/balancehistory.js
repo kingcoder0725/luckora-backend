@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const balancehistory_1 = require("../../controllers/payment/balancehistory");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_promise_router_1.default)();
+router.get('/', auth_1.AGVerifytoken, balancehistory_1.get);
+router.get('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), balancehistory_1.getOne);
+router.post('/', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Payments.BalanceHistory.Create), balancehistory_1.create);
+router.post('/list', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Payments.BalanceHistory.List), balancehistory_1.list);
+router.post('/csv', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Payments.BalanceHistory.List), balancehistory_1.csv);
+router.put('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Payments.BalanceHistory.Update), balancehistory_1.updateOne);
+router.delete('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), balancehistory_1.deleteOne);
+exports.default = router;

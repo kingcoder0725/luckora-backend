@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const payments_1 = require("../../controllers/payment/payments");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_promise_router_1.default)();
+router.get('/', auth_1.AGVerifytoken, payments_1.get);
+router.post('/callback', payments_1.callback);
+router.get('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), payments_1.getOne);
+router.post('/', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Payments.Payments.Create), payments_1.create);
+router.post('/list', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Payments.Payments.List), payments_1.list);
+router.post('/csv', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Payments.Payments.List), payments_1.csv);
+router.put('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Payments.Payments.Update), payments_1.updateOne);
+router.delete('/:id', auth_1.AGVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), payments_1.deleteOne);
+router.post('/approve', auth_1.AGVerifytoken, validation_1.V.body(validation_1.Validator.Payments.Payments.ApproveWithdrawal), payments_1.approveWithdrawal);
+exports.default = router;

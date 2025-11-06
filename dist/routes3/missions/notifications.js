@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const auth_1 = require("../../middlewares/auth");
+const validation_1 = require("../../middlewares/validation");
+const notification_1 = require("../../controllers/missions/notifications");
+
+const router = (0, express_promise_router_1.default)();
+
+router.get('/:id', validation_1.V.params(validation_1.Validator.ObjectId), auth_1.AGVerifytoken, notification_1.getOne);
+router.post('/', validation_1.V.body(validation_1.Validator.Missions.Notification.Create), auth_1.AGVerifytoken, notification_1.create);
+router.post('/list', validation_1.V.body(validation_1.Validator.Missions.Notification.List), auth_1.AGVerifytoken, notification_1.list);
+router.put('/:id', validation_1.V.body(validation_1.Validator.Missions.Notification.Update), auth_1.AGVerifytoken, notification_1.updateOne);
+router.delete('/:id', validation_1.V.params(validation_1.Validator.ObjectId), auth_1.AGVerifytoken, notification_1.deleteOne);
+exports.default = router;

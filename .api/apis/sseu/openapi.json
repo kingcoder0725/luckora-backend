@@ -1,0 +1,44 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OMNO SSO",
+    "version": "unknown"
+  },
+  "servers": [
+    {
+      "url": "https://sso.omno.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "client_id"
+      },
+      "sec1": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "client_secret"
+      },
+      "sec2": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "grant_type",
+        "x-default": "client_credentials"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": [],
+      "sec1": [],
+      "sec2": []
+    }
+  ],
+  "paths": {},
+  "x-readme": {
+    "headers": []
+  },
+  "x-readme-fauxas": true
+}

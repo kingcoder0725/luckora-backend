@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const socials_1 = require("../../controllers/settings/socials");
+const router = (0, express_promise_router_1.default)();
+router.get('/', socials_1.get);
+router.get('/:id', validation_1.V.params(validation_1.Validator.ObjectId), socials_1.getOne);
+router.post('/', validation_1.V.body(validation_1.Validator.Settings.Socials.Create), socials_1.create);
+router.post('/list', validation_1.V.body(validation_1.Validator.Settings.Socials.List), socials_1.list);
+router.put('/:id', validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Settings.Socials.Update), socials_1.updateOne);
+router.delete('/:id', validation_1.V.params(validation_1.Validator.ObjectId), socials_1.deleteOne);
+exports.default = router;

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const room_1 = require("./room");
+const report_1 = require("./report");
+const support_1 = require("./support");
+const router = (0, express_promise_router_1.default)();
+router.use('/room', room_1.default);
+router.use('/report', report_1.default);
+router.use('/support', support_1.default);
+exports.default = router;

@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const auth_1 = require("../../middlewares/auth");
+const sports_1 = require("../../controllers/sports");
+const router = (0, express_promise_router_1.default)();
+router.post('/result', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.Result), sports_1.sportsBetResult);
+router.post('/resettle/:id', auth_1.AVerifytoken, validation_1.V.params(validation_1.Validator.ObjectId), sports_1.sportsResettle);
+router.post('/lists', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.Lists), sports_1.getSportsLists);
+router.post('/odds', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.Odds), sports_1.getSportsOdds);
+router.post('/matchs', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.Matchs), sports_1.getSportsMatchs);
+router.post('/bet-history', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.BetHistory), sports_1.getBetHistory);
+router.post('/bet', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.Bet), auth_1.verifyToken, auth_1.checkUser, sports_1.SportsBet);
+router.post('/history', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.History), auth_1.verifyToken, auth_1.checkUser, sports_1.getBettingHistory);
+router.post('/cashout', auth_1.AVerifytoken, validation_1.V.body(validation_1.Validator.Sports.Bet.CashOut), auth_1.verifyToken, auth_1.checkUser, sports_1.sportsBetCashOut);
+exports.default = router;

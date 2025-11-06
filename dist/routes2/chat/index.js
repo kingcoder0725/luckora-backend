@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const auth_1 = require("../../middlewares/auth");
+const chat_1 = require("../../controllers/chat");
+const support_1 = require("../../controllers/chat/support");
+const router = (0, express_promise_router_1.default)();
+router.post('/messages', validation_1.V.body(validation_1.Validator.Chat.Room.Get), chat_1.getMessages);
+router.post('/supports', validation_1.V.body(validation_1.Validator.Chat.Room.Get), auth_1.verifyToken, support_1.getSupportMessages);
+router.post('/unread-supports', validation_1.V.body(validation_1.Validator.Chat.Room.Get), auth_1.verifyToken, support_1.getUnreadSupports);
+exports.default = router;

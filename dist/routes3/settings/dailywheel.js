@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const auth_1 = require("../../middlewares/auth");
+const validation_1 = require("../../middlewares/validation");
+const dailywheel_1 = require("../../controllers/settings/dailywheel");
+const router = (0, express_promise_router_1.default)();
+router.get('/:id', validation_1.V.params(validation_1.Validator.ObjectId), auth_1.AGVerifytoken, dailywheel_1.getOne);
+router.post('/', validation_1.V.body(validation_1.Validator.Settings.DailySpinwheel.Create), auth_1.AGVerifytoken, dailywheel_1.create);
+router.post('/list', validation_1.V.body(validation_1.Validator.Settings.DailySpinwheel.List), auth_1.AGVerifytoken, dailywheel_1.list);
+router.put('/:id', validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Settings.DailySpinwheel.Update), auth_1.AGVerifytoken, dailywheel_1.updateOne);
+router.delete('/:id', validation_1.V.params(validation_1.Validator.ObjectId), auth_1.AGVerifytoken, dailywheel_1.deleteOne);
+exports.default = router;

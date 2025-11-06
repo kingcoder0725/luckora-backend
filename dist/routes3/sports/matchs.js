@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const sportsmatchs_1 = require("../../controllers/sports/sportsmatchs");
+const router = (0, express_promise_router_1.default)();
+router.get('/', sportsmatchs_1.get);
+router.get('/:id', validation_1.V.params(validation_1.Validator.ObjectId), sportsmatchs_1.getOne);
+router.post('/', validation_1.V.body(validation_1.Validator.Sports.Matchs.Create), sportsmatchs_1.create);
+router.post('/list', validation_1.V.body(validation_1.Validator.Sports.Matchs.List), sportsmatchs_1.list);
+router.post('/label', validation_1.V.body(validation_1.Validator.Sports.Matchs.Label), sportsmatchs_1.label);
+router.put('/:id', validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Sports.Matchs.Update), sportsmatchs_1.updateOne);
+router.delete('/:id', validation_1.V.params(validation_1.Validator.ObjectId), sportsmatchs_1.deleteOne);
+exports.default = router;

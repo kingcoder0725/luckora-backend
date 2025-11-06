@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const payment_1 = require("./payment");
+const payments_1 = require("./payments");
+const currency_1 = require("./currency");
+const balances_1 = require("./balances");
+const balancehistory_1 = require("./balancehistory");
+const router = (0, express_promise_router_1.default)();
+router.use('/', payment_1.default);
+router.use('/payments', payments_1.default);
+router.use('/currency', currency_1.default);
+router.use('/balances', balances_1.default);
+router.use('/balancehistory', balancehistory_1.default);
+exports.default = router;

@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const timelesstech_1 = require("../../controllers/games/timelesstech");
+const router = (0, express_promise_router_1.default)();
+router.get('/game-list', timelesstech_1.getGameLists);
+router.post('/changebalance', timelesstech_1.changebalance);
+router.post('/balance', timelesstech_1.balance);
+router.post('/authenticate', timelesstech_1.authenticate);
+router.post('/status', timelesstech_1.status);
+router.post('/cancel', timelesstech_1.cancel);
+// router.post('/finishround', timelesstech_1.finishround);
+router.post('/ping', timelesstech_1.ping);
+router.get('/cancel-campaign/:id', timelesstech_1.cancelUserCampaign);
+router.get('/vendors', timelesstech_1.getVendorsList);
+router.get('/vendors/limits', timelesstech_1.getFreespinLimit);
+router.get('/vendors/list', timelesstech_1.getcampaignsList);
+exports.default = router;

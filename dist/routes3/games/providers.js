@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_promise_router_1 = require("express-promise-router");
+const validation_1 = require("../../middlewares/validation");
+const providers_1 = require("../../controllers/games/providers");
+const router = (0, express_promise_router_1.default)();
+router.get('/', providers_1.get);
+router.get('/:id', validation_1.V.params(validation_1.Validator.ObjectId), providers_1.getOne);
+router.post('/', validation_1.V.body(validation_1.Validator.Games.Providers.Create), providers_1.create);
+router.post('/list', validation_1.V.body(validation_1.Validator.Games.Providers.List), providers_1.list);
+router.post('/vendors', providers_1.getVendors);
+router.post('/label', providers_1.label);
+router.put('/:id', validation_1.V.params(validation_1.Validator.ObjectId), validation_1.V.body(validation_1.Validator.Games.Providers.Update), providers_1.updateOne);
+router.delete('/:id', validation_1.V.params(validation_1.Validator.ObjectId), providers_1.deleteOne);
+exports.default = router;
