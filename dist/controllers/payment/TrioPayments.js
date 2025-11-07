@@ -36,8 +36,8 @@ const createTrioSession = (req, res) => __awaiter(void 0, void 0, void 0, functi
                 name: user.name,
                 amount: amount,
                 external_id: ext_id,
-                description: 'Paid to webet360.com',
-                redirect_url: 'https://webet360.com/en/user/wallet',
+                description: 'Paid to betcasino555.com',
+                redirect_url: 'https://betcasino555.com/en/user/wallet',
             },
             receiver: {
                 virtual_account_id: VIRTUAL_ID_TRIO,

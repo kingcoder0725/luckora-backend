@@ -106,7 +106,7 @@ else {
     app.use('/api/v2/', apiV2Limiter, routes2_1.default);
     app.use('/api/v3/', apiV3Limiter, routes3_1.default);
     
-    // Casino redirect for backward compatibility (drifbet.com/casino/ -> /api/v3/games/timelesstech/)
+    // Casino redirect for backward compatibility (betcasino555.com/casino/ -> /api/v3/games/timelesstech/)
     app.use('/casino/', (req, res, next) => {
         // Remove /casino/ prefix and add /games/timelesstech/ prefix
         const newPath = req.url.replace(/^\//, '');
@@ -130,7 +130,7 @@ else {
       const swaggerDefinition = {
         openapi: '3.0.0',
         info: {
-            title: 'Webet360 API',
+            title: 'BetCasino555 API',
             version: '1.0.0',
             description: 'API documentation for v2 routes',
         },

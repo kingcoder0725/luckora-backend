@@ -26,7 +26,7 @@ const prompt = fs.readFileSync(filePath, 'utf-8');
 let USERS = {};
 let SOCKETS = {};
 const inputEmailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
-const inputUrlRegex = /https?:\/\/(?!localhost|webet360\.com)\S+/;
+const inputUrlRegex = /https?:\/\/(?!localhost|betcasino555\.com)\S+/;
 const inputPhoneRegex = /(\+?\d{9,})/;
 const checkHistory = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield chat_1.ChatSettings.findOne({ key: "display_day" });

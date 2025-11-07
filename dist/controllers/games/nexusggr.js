@@ -50,7 +50,7 @@ const getGameLists = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 "provider_code": provider.code,
             });
             if (result.data.msg === "SUCCESS" && result.data.status === 1 && result.data.games.length) {
-                const query = result.data.games.map((list) => (Object.assign(Object.assign({}, list), { provider_code: provider.code, banner: list.banner.replaceAll("https://assets.fiverscool.com", "https://webet360.com/banners") })));
+                const query = result.data.games.map((list) => (Object.assign(Object.assign({}, list), { provider_code: provider.code, banner: list.banner.replaceAll("https://assets.fiverscool.com", "https://betcasino555.com/banners") })));
                 yield models_1.GameLists.insertMany(query);
             }
         }));

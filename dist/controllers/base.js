@@ -92,6 +92,7 @@ const getSessionTime = () => {
 };
 exports.getSessionTime = getSessionTime;
 const encrypt = (text) => {
+    console.log("Encrypt text =>", text);
     const iv = crypto.randomBytes(Number(process.env.IV_LENGTH));
     const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(process.env.ENCRYPTION_KEY), iv);
     let encrypted = cipher.update(text);
@@ -100,6 +101,7 @@ const encrypt = (text) => {
 };
 exports.encrypt = encrypt;
 const decrypt = (text) => {
+    console.log("Decrypt text =>", text);
     try {
         const textParts = text.split('::');
         const iv = Buffer.from(textParts.shift(), 'hex');
@@ -1135,7 +1137,7 @@ const getUrlMetadata = (url, lastModified) => {
     let priority = '0.6';
     let changefreq = 'monthly';
     // Main pages
-    if (url.endsWith('/webet360.com/') ||
+    if (url.endsWith('/betcasino555.com/') ||
         url.endsWith('/en') ||
         url.endsWith('/casino') ||
         url.endsWith('/sports') ||
@@ -1197,13 +1199,13 @@ const getSiteMap = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const URLS = [...SITE_URLS.map((url) => ({ url }))];
         console.log('////////////////////', URLS.length);
-        const CASINO_ROOT = 'https://webet360.com/en/casino';
-        const PROMOTION_URL = 'https://webet360.com/en/casino/promotion';
-        const SPORTS_ROOT = 'https://webet360.com/en/sports';
+        const CASINO_ROOT = 'https://betcasino555.com/en/casino';
+        const PROMOTION_URL = 'https://betcasino555.com/en/casino/promotion';
+        const SPORTS_ROOT = 'https://betcasino555.com/en/sports';
         const CASINO_TYPE = ['casino', 'live-casino', 'lottery', 'sports', 'other'];
         const LANGS = ['ru', 'fr', 'pt', 'nb', 'fi', 'sv', 'es', 'de'];
         // Add main pages with high priority
-        URLS.push({ url: 'https://webet360.com/en', lastModified: new Date() });
+        URLS.push({ url: 'https://betcasino555.com/en', lastModified: new Date() });
         URLS.push({ url: CASINO_ROOT, lastModified: new Date() });
         URLS.push({ url: SPORTS_ROOT, lastModified: new Date() });
         URLS.push({ url: PROMOTION_URL, lastModified: new Date() });

@@ -10,7 +10,7 @@ const custom_1 = require('./controllers/journey/custom');
 const models_1 = require('./models');
 const redis_1 = require('./utils/redis');
 
-const API_URL = process.env.API_URL || 'https://webet360.com';
+const API_URL = process.env.API_URL || 'https://betcasino555.com';
 
 
 const io = (0, socket_io_client_1.io)(`${API_URL}/journey`, {

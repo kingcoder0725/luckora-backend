@@ -1,7 +1,7 @@
 # Main site
 server {
     listen 80;
-    server_name drifbet.com www.drifbet.com;
+    server_name betcasino555.com www.betcasino555.com;
 
     location / {
         proxy_pass http://localhost:8000;

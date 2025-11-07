@@ -44,7 +44,7 @@ const sendJourneyEmail = async (toPlayers, node) => {
     const mailOptions = {
         from: { email: MARKETING_EMAIL, name: APP_NAME },
         to: toPlayers,
-        subject: 'webet360',
+        subject: 'betcasino555',
         templateId: sendgridId || 'd-5872ef231b8e4d8084658108936c7cf6',
         dynamicTemplateData: { title }
     };
