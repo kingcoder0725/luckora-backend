@@ -36,6 +36,30 @@ const TRUST_API_SELFIE_ID = process.env.TRUST_API_SELFIE_ID;
 const TRUST_API_FRONT_ID = process.env.TRUST_API_FRONT_ID;
 const TRUST_API_BACK_ID = process.env.TRUST_API_BACK_ID;
 const verificationCodes = {};
+const LOGIN_HISTORY_DEVICE_VALUES = ['Windows', 'Android', 'iOS', 'MacOS', 'Linux', 'Unknown'];
+const normalizeLoginDevice = (value) => {
+    if (!value)
+        return 'Unknown';
+    const raw = typeof value === 'string'
+        ? value
+        : (value === null || value === void 0 ? void 0 : value.raw) || (value === null || value === void 0 ? void 0 : value.ua) || value.toString();
+    if (!raw)
+        return 'Unknown';
+    if (LOGIN_HISTORY_DEVICE_VALUES.includes(raw))
+        return raw;
+    const lower = raw.toLowerCase();
+    if (lower.includes('windows'))
+        return 'Windows';
+    if (lower.includes('android'))
+        return 'Android';
+    if (lower.includes('iphone') || lower.includes('ipad') || lower.includes('ios'))
+        return 'iOS';
+    if (lower.includes('mac os') || lower.includes('macos') || lower.includes('macintosh'))
+        return 'MacOS';
+    if (lower.includes('linux'))
+        return 'Linux';
+    return 'Unknown';
+};
 const userInfo = (user) => {
     return {
         _id: user._id,
@@ -155,7 +179,7 @@ const signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const LoginHistory = new models_1.LoginHistories({
             userId: user._id,
             ip: clientip || '',
-            device: device || 'Unknown',
+            device: normalizeLoginDevice(device || req.headers['user-agent']),
             country: country,
             range: req.body.range || {},
             useragent: req.headers['user-agent'] ? { raw: req.headers['user-agent'] } : {},
@@ -292,7 +316,12 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // fiatBalance.status = true;
         yield models_1.Balances.create({ userId: newuser._id, currency: user.currency, balance: 0, status: true });
         const session = (0, base_1.signAccessToken)(req, res, newuser._id);
-        const LoginHistory = new models_1.LoginHistories(Object.assign(Object.assign({ userId: newuser._id }, session), { data: req.body }));
+        const loginHistoryData = Object.assign(Object.assign({ userId: newuser._id }, session), { data: req.body });
+        loginHistoryData.device = normalizeLoginDevice(req.body.device || req.headers['user-agent']);
+        if (req.headers['user-agent']) {
+            loginHistoryData.useragent = Object.assign({ raw: req.headers['user-agent'] }, (loginHistoryData === null || loginHistoryData === void 0 ? void 0 : loginHistoryData.useragent) || {});
+        }
+        const LoginHistory = new models_1.LoginHistories(loginHistoryData);
         yield LoginHistory.save();
         yield models_1.Sessions.updateOne({ userId: newuser._id }, session, {
             new: true,
@@ -455,23 +484,14 @@ const fastSignup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 
         // Create session
         const session = (0, base_1.signAccessToken)(req, res, newuser._id);
-        // Normalize device to allowed enum values to avoid schema validation error
-        const normalizeDevice = (val) => {
-            const v = (val || '').toLowerCase();
-            if (v.includes('windows')) return 'Windows';
-            if (v.includes('android')) return 'Android';
-            if (v.includes('iphone') || v.includes('ios')) return 'iOS';
-            if (v.includes('mac')) return 'MacOS';
-            if (v.includes('linux')) return 'Linux';
-            return 'Unknown';
-        };
-        const LoginHistory = new models_1.LoginHistories(Object.assign(Object.assign({ 
+        const loginHistoryData = Object.assign(Object.assign({
             userId: newuser._id,
             ip: clientip || '',
-            device: normalizeDevice(device),
+            device: normalizeLoginDevice(device || req.headers['user-agent']),
             country: country,
             useragent: req.headers['user-agent'] ? { raw: req.headers['user-agent'] } : {},
-        }, session), { data: req.body }));
+        }, session), { data: req.body });
+        const LoginHistory = new models_1.LoginHistories(loginHistoryData);
         yield LoginHistory.save();
 
         yield models_1.Sessions.updateOne({ userId: newuser._id }, session, {
@@ -710,7 +730,12 @@ const signinMetamask = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return;
     }
     const session = (0, base_1.signAccessToken)(req, res, user._id);
-    const LoginHistory = new models_1.LoginHistories(Object.assign(Object.assign({ userId: user._id }, session), { data: req.body }));
+    const loginHistoryData = Object.assign(Object.assign({ userId: user._id }, session), { data: req.body });
+    loginHistoryData.device = normalizeLoginDevice(req.body.device || req.headers['user-agent']);
+    if (req.headers['user-agent']) {
+        loginHistoryData.useragent = Object.assign({ raw: req.headers['user-agent'] }, (loginHistoryData === null || loginHistoryData === void 0 ? void 0 : loginHistoryData.useragent) || {});
+    }
+    const LoginHistory = new models_1.LoginHistories(loginHistoryData);
     yield LoginHistory.save();
     yield models_1.Sessions.updateOne({ userId: user._id }, session, {
         new: true,
@@ -770,7 +795,12 @@ const signinSolana = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return;
     }
     const session = (0, base_1.signAccessToken)(req, res, user._id);
-    const LoginHistory = new models_1.LoginHistories(Object.assign(Object.assign({ userId: user._id }, session), { data: req.body }));
+    const loginHistoryData = Object.assign(Object.assign({ userId: user._id }, session), { data: req.body });
+    loginHistoryData.device = normalizeLoginDevice(req.body.device || req.headers['user-agent']);
+    if (req.headers['user-agent']) {
+        loginHistoryData.useragent = Object.assign({ raw: req.headers['user-agent'] }, (loginHistoryData === null || loginHistoryData === void 0 ? void 0 : loginHistoryData.useragent) || {});
+    }
+    const LoginHistory = new models_1.LoginHistories(loginHistoryData);
     yield LoginHistory.save();
     yield models_1.Sessions.updateOne({ userId: user._id }, session, {
         new: true,

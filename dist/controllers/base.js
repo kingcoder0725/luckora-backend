@@ -441,7 +441,7 @@ const handleBet = ({ req = undefined, userId, amount, currency, type, info = '',
         if (result.status && !result.disabled && req) {
             const session = yield models_1.Sessions.findOne({ userId });
             if (session && session.socketId)
-                req.app.get('io').to(session.socketId).emit('balance', { balance: result.balance });
+                req.app.get('io').to(session.Id).emit('balance', { balance: result.balance });
         }
         
         if (amount < 0 && SpentBetsTypes.includes(type))
